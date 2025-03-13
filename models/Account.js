@@ -1,11 +1,8 @@
+// models/Account.js
+
 import mongoose from 'mongoose';
 
-const accountSchema = mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+const accountSchema = new mongoose.Schema({
   accountNumber: {
     type: String,
     required: true,
@@ -13,20 +10,24 @@ const accountSchema = mongoose.Schema({
   },
   balance: {
     type: Number,
-    required: true,
     default: 0,
-  },
-  accountType: {
-    type: String,
-    enum: ["checking", "savings"],
-    required: true,
   },
   status: {
     type: String,
-    enum: ["active", "inactive"],
+    enum: ['active', 'inactive'],
+    default: 'active',
+  },
+  accountType: {
+    type: String,
+    enum: ['savings', 'checking', 'business'],
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
 });
 
-const Account = mongoose.model("Account", accountSchema);
+const Account = mongoose.model('Account', accountSchema);
 export default Account;

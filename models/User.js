@@ -22,7 +22,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Account" }]  // Ensure this is an array
+  accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Account" }],
+  dailyTransferTotal: { type: Number, default: 1000 },
+  role: {
+    type: String,
+    enum: ['admin', 'customer', 'manager'],  // Define roles here
+    default: 'customer',  // Default role for new users
+  }
 });
 
 const User = mongoose.model("User", userSchema);
